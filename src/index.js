@@ -16,10 +16,6 @@ import SearchBar from "./components/search-bar";
 import AlbumList from "./components/album-list";
 import axios from 'axios';
 
-// Replace API key. It expires every one hour. 
-// TODO: get access token from server
-const API_KEY = "BQCn4UsS1wRG_7I0UTO8ZGMCRwR7jVrooU-2tgrf7T-3I7up-XnpFolJX3FaYNPZWytT4XwQsjiDr03ixN27Rg";
-
 const ALBUMS_URL = "https://api.spotify.com/v1/artists/0oSGxfWSnnOXhD2fKuz2Gy/albums?limit=10";
 const SEARCH_URL = "https://api.spotify.com/v1/search?type=artist&limit=10&q="
 
@@ -33,18 +29,28 @@ class App extends Component {
       offset: 0
     };
 
+    this.api_key = '';
     this.handleScroll = this.handleScroll.bind(this);
   }
 
   componentDidMount() {
     window.addEventListener("scroll", this.handleScroll);
-    this.albumQuery();
+    this.getSpotifyKey();
   }
 
   componentWillUnmount() {
     window.removeEventListener("scroll", this.handleScroll);
   }
 
+  getSpotifyKey() {
+    axios.get(`http://samabhi.000webhostapp.com/php/spotify-key.php`)
+      .then(res => {
+        this.api_key = res.data;
+        this.albumQuery();
+      }, error => {
+        alert('Failed to get Spotify API Key');
+      })
+  }
   // calls spotify api to get data 
   // calls different api if user is searching 
   albumQuery() {
@@ -55,11 +61,15 @@ class App extends Component {
       url = SEARCH_URL + this.state.searchArtist.split(' ').join('+');
     }
 
+    if (this.api_key === '') {
+      alert('Spotify API Key is not available');
+    }
+
     axios({
       url: url + `&offset=${this.state.offset}`,
       method: 'get',
       headers: {
-        'Authorization': 'Bearer ' + API_KEY
+        'Authorization': 'Bearer ' + this.api_key
       }
     })
       .then(res => {
@@ -76,6 +86,7 @@ class App extends Component {
       });
     }, error => {
       console.log(error);
+      alert('Failed to get data from spotify. Invalid Access Code.');
     });
   }
 
