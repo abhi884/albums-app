@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "description": "Create a David Bowie Album App",
   "main": "index.js",
-  "repository": "https://github.com/abhi884/albums-app",
+  "repository": "",
   "scripts": {
-    "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js"
+    "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
+    "webpack": "webpack"
   },
   "author": "Abhinay",
   "license": "ISC",
