@@ -1,9 +1,9 @@
 {
-  "name": "spotify-assignment",
+  "name": "albums-app",
   "version": "1.0.0",
-  "description": "Create a David Bowie Album App",
+  "description": "Create a David Bowie Album App using Spotify",
   "main": "index.js",
-  "repository": "",
+  "repository": "https://github.com/abhi884/albums-app",
   "scripts": {
     "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
     "webpack": "webpack"
