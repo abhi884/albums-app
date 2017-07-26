@@ -3,7 +3,7 @@
  * 
  * app.js
  *
- * @description           entry file for albums app
+ * @description           main file for albums app
  * @author                Abhinay
  * @date                  July 19 2017
  * 
